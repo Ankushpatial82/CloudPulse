@@ -26,7 +26,14 @@ import {
   DEMO_PROCESSES,
   generateHistoricalMetricsData,
 } from "../../../../lib/demoData";
-import { SOCKET_EVENTS } from "@cloudpulse/shared";
+const SOCKET_EVENTS: Record<string, string> = {
+  METRICS_UPDATE: "metrics:update",
+  SERVER_METRICS: "server:metrics",
+  SERVER_STATUS: "server:status",
+  NEW_ALERT: "alert:new",
+  SUBSCRIBE_SERVER: "subscribe:server",
+  UNSUBSCRIBE_SERVER: "unsubscribe:server",
+};
 
 export default function ServerDetailsPage() {
   const params = useParams();

@@ -1,5 +1,6 @@
 import React from "react";
-import { ServerStatus } from "@cloudpulse/shared";
+
+export type ServerStatus = "ONLINE" | "WARNING" | "CRITICAL" | "OFFLINE";
 
 interface StatusBadgeProps {
   status: ServerStatus | string;
