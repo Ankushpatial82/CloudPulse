@@ -78,7 +78,7 @@ app.use(errorHandler);
 const startServer = async () => {
   await connectRedis();
 
-  server.listen(env.PORT, () => {
+  server.listen(env.PORT, "0.0.0.0", () => {
     console.log(`=================================================`);
     console.log(` 🚀 CLOUDPULSE API Server running on port ${env.PORT}`);
     console.log(` 📡 Real-time Socket.IO initialized`);
