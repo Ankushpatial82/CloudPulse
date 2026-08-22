@@ -3,9 +3,11 @@ services:
     name: cloudpulse-api
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build:shared && npx prisma generate && npm run build:api
-    startCommand: npm run start --workspace=apps/api
+    buildCommand: npm install && npm run build:shared && npx prisma generate && npx prisma db push && npm run build:api
+    startCommand: node apps/api/dist/server.js
     envVars:
+      - key: NODE_VERSION
+        value: 20.12.2
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
@@ -16,6 +18,8 @@ services:
         generateValue: true
       - key: CLIENT_URL
         value: "*"
+      - key: REDIS_URL
+        value: ""
 
 databases:
   - name: cloudpulse-db
