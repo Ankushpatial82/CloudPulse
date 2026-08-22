@@ -19,7 +19,9 @@
     "prisma:generate": "npx prisma generate",
     "prisma:push": "npx prisma db push"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "prisma": "^5.14.0",
     "typescript": "^5.4.5"
   }
 }
