@@ -74,20 +74,16 @@ app.use("/api", routes);
 // Central Error Handler
 app.use(errorHandler);
 
-// Connect Redis & Start Server
-const startServer = async () => {
-  await connectRedis();
+// Start Server immediately and connect Redis in background
+server.listen(env.PORT, "0.0.0.0", () => {
+  console.log(`=================================================`);
+  console.log(` 🚀 CLOUDPULSE API Server running on port ${env.PORT}`);
+  console.log(` 📡 Real-time Socket.IO initialized`);
+  console.log(` 🔒 Environment: ${env.NODE_ENV}`);
+  console.log(`=================================================`);
 
-  server.listen(env.PORT, "0.0.0.0", () => {
-    console.log(`=================================================`);
-    console.log(` 🚀 CLOUDPULSE API Server running on port ${env.PORT}`);
-    console.log(` 📡 Real-time Socket.IO initialized`);
-    console.log(` 🔒 Environment: ${env.NODE_ENV}`);
-    console.log(`=================================================`);
+  // Connect Redis non-blocking in background
+  connectRedis().catch((err) => {
+    console.warn("[Redis] Running in-memory mode:", err?.message || err);
   });
-};
-
-startServer().catch((err) => {
-  console.error("Failed to start CloudPulse API server:", err);
-  process.exit(1);
 });
