@@ -1,7 +1,12 @@
 import { createClient } from "redis";
 import { env } from "./env";
 
-const hasRedis = !!env.REDIS_URL && env.REDIS_URL.trim() !== "" && !env.REDIS_URL.includes("localhost:6379" && process.env.NODE_ENV === "production" ? "never" : "");
+const isProd = process.env.NODE_ENV === "production";
+const hasRedis = Boolean(
+  env.REDIS_URL &&
+    env.REDIS_URL.trim() !== "" &&
+    !(isProd && env.REDIS_URL.includes("localhost:6379"))
+);
 
 export const redisClient = hasRedis
   ? createClient({
