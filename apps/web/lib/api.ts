@@ -5,6 +5,9 @@ if (rawApiUrl && !rawApiUrl.startsWith('http')) {
 if (rawApiUrl.endsWith('/')) {
   rawApiUrl = rawApiUrl.slice(0, -1);
 }
+if (!rawApiUrl.endsWith('/api')) {
+  rawApiUrl += '/api';
+}
 const API_URL = rawApiUrl;
 
 export async function apiFetch<T = any>(
