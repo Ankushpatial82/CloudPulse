@@ -1,4 +1,8 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+let rawApiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+if (rawApiUrl.endsWith('/')) {
+  rawApiUrl = rawApiUrl.slice(0, -1);
+}
+const API_URL = rawApiUrl;
 
 export async function apiFetch<T = any>(
   endpoint: string,
@@ -16,7 +20,8 @@ export async function apiFetch<T = any>(
   }
 
   try {
-    const res = await fetch(`${API_URL}${endpoint}`, {
+    const safeEndpoint = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
+    const res = await fetch(`${API_URL}${safeEndpoint}`, {
       ...options,
       headers,
     });
