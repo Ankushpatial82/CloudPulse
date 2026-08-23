@@ -21,7 +21,14 @@ export async function apiFetch<T = any>(
       headers,
     });
 
-    const data = await res.json();
+    const text = await res.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      throw new Error(`API error (Status: ${res.status}). Check if NEXT_PUBLIC_API_URL is correct in Vercel Environment Variables.`);
+    }
+
     if (!res.ok) {
       throw new Error(data.message || `Request failed with status ${res.status}`);
     }
