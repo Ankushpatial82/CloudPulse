@@ -1,4 +1,7 @@
 let rawApiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
+if (rawApiUrl && !rawApiUrl.startsWith('http')) {
+  rawApiUrl = 'https://' + rawApiUrl;
+}
 if (rawApiUrl.endsWith('/')) {
   rawApiUrl = rawApiUrl.slice(0, -1);
 }
